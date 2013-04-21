@@ -17,6 +17,7 @@ namespace WindowsGame2
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        // github測試, 隨便加個註解XD
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
