@@ -22,8 +22,16 @@ namespace WindowsGame2
         public Rectangle videoDisplayRectangle; // 彩色影像顯示所在位置
         public Texture2D kinectVideoTexture;    // 彩色影像texture
 
+        public struct VideoSize
+        {
+           int Width;
+           int Height;
+        }
+        VideoSize videoSize;
+        
         public int videoW = 200;    // 影像寬 4
         public int videoH = 150;    // 影像長 3
+
 
         public kinectUserVideoClass(Game game, KinectSensor kinectSensor)
             : base(game)
@@ -35,6 +43,7 @@ namespace WindowsGame2
         public override void Initialize()
         {
             // TODO: Add your initialization code here
+            videoSize.
             /*
             if (kinectSensor != null)
             {

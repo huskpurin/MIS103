@@ -25,6 +25,19 @@ namespace WindowsGame2
         kinectUserVideoClass videoImage;
         Texture2D kinectVideoTexture;
 
+        public enum UserSex
+        {
+            Male,
+            Female
+        }
+        public enum UserHand
+        {
+            leftHand,
+            rightHand
+        }
+        UserSex userSex;
+        UserHand userHand;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
