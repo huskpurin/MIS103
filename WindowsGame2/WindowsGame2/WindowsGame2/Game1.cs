@@ -25,6 +25,10 @@ namespace WindowsGame2
         kinectUserVideoClass videoImage;
         Texture2D kinectVideoTexture;
 
+        // 遊戲架構
+        GameComponent_Guide stateGuide;
+
+        // 玩家設定
         public enum UserSex
         {
             Male,
