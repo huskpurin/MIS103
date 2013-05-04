@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -25,6 +25,11 @@ namespace WindowsGame2
         kinectUserVideoClass videoImage;
         Texture2D kinectVideoTexture;
 
+        // 遊戲架構
+        GameComponent_Guide gameState_Guide;
+        GameComponent_Menu gameState_Menu;
+
+        // 玩家設定
         public enum UserSex
         {
             Male,
