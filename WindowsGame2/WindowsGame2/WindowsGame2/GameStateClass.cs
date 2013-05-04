@@ -32,7 +32,7 @@ namespace WindowsGame2
                 game.Window.Title = "";
             else if (gs == GameState.GameTime)
                 game.Window.Title = "";
-            else if (gs == GameState.Help)
+            else if (gs == GameState.GamePractice)
                 game.Window.Title = "";
             else if (gs == GameState.Help)
                 game.Window.Title = "";

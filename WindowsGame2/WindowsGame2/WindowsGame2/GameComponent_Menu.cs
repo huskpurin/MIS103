@@ -15,9 +15,9 @@ namespace WindowsGame2
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class GameComponent_Guide : Microsoft.Xna.Framework.DrawableGameComponent
+    public class GameComponent_Menu : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        public GameComponent_Guide(Game game)
+        public GameComponent_Menu(Game game)
             : base(game)
         {
             // TODO: Construct any child components here

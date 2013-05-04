@@ -26,7 +26,8 @@ namespace WindowsGame2
         Texture2D kinectVideoTexture;
 
         // 遊戲架構
-        GameComponent_Guide stateGuide;
+        GameComponent_Guide gameState_Guide;
+        GameComponent_Menu gameState_Menu;
 
         // 玩家設定
         public enum UserSex
