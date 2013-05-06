@@ -108,7 +108,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameComponent1.cs" />
     <Compile Include="GameComponent_Guide.cs" />
     <Compile Include="GameComponent_Menu.cs" />
     <Compile Include="GameStateClass.cs" />

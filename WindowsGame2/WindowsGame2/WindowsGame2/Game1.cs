@@ -19,6 +19,7 @@ namespace WindowsGame2
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont Font1;
 
         KinectSensor ks;
 
@@ -70,16 +71,28 @@ namespace WindowsGame2
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            gameState_Guide = new GameComponent_Guide(this);
+            gameState_Guide.Initialize();
+            this.Components.Add(gameState_Guide);
+
+            gameState_Menu = new GameComponent_Menu(this);
+            gameState_Menu.Initialize();
+            this.Components.Add(gameState_Menu);
+
+            Font1 = Content.Load<SpriteFont>("SpriteFont1");
+            gameState_Menu.Font = Font1;
+
+            /*
             ks = KinectSensor.KinectSensors[0];
             ks.ColorStream.Enable();
             ks.SkeletonStream.Enable();
             ks.Start();
-
+            
             // DrawableGameComponent - KinectUserVideoClass : 左下顯示小螢幕(彩色攝影機)
             videoImage = new kinectUserVideoClass(this, KinectSensor.KinectSensors[0]);
             videoImage.Initialize();
             this.Components.Add(videoImage);
-
+            */
             startTexture = Content.Load<Texture2D>("start");
             startPosition = new Rectangle(GraphicsDevice.Viewport.Width / 2 - startTexture.Width / 2,
                                           GraphicsDevice.Viewport.Height / 2 - startTexture.Height / 2,
@@ -91,7 +104,10 @@ namespace WindowsGame2
 
         protected override void UnloadContent()
         {
+            /*
             ks.Stop();
+            */
+
             // TODO: Unload any non ContentManager content here
         }
 
@@ -104,7 +120,7 @@ namespace WindowsGame2
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || // 按下搖桿的back鍵
                 Keyboard.GetState().IsKeyDown(Keys.Space))  // 按下space
                 this.Exit();    // 結束程式
-
+            /*
             // skeleton
             using (SkeletonFrame frame = ks.SkeletonStream.OpenNextFrame(0))
             {
@@ -146,7 +162,7 @@ namespace WindowsGame2
                     } // end if
                 } // end if
             } // end using
-
+            */
 
             base.Update(gameTime);
         }

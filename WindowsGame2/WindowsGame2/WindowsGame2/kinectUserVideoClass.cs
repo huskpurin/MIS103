@@ -43,7 +43,7 @@ namespace WindowsGame2
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            videoSize.
+            //videoSize.
             /*
             if (kinectSensor != null)
             {

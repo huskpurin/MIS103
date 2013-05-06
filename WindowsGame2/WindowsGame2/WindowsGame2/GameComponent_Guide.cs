@@ -47,6 +47,7 @@ namespace WindowsGame2
 
         public override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
         }
     }
 }
