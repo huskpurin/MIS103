@@ -26,23 +26,10 @@ namespace WindowsGame2
         kinectUserVideoClass videoImage;
         Texture2D kinectVideoTexture;
 
-        // 遊戲架構
+        // 宣告GameComponent (遊戲架構)
+        GameComponent_Start gameState_Start;
         GameComponent_Guide gameState_Guide;
         GameComponent_Menu gameState_Menu;
-
-        // 玩家設定
-        public enum UserSex
-        {
-            Male,
-            Female
-        }
-        public enum UserHand
-        {
-            leftHand,
-            rightHand
-        }
-        UserSex userSex;
-        UserHand userHand;
 
         public Game1()
         {
@@ -53,31 +40,37 @@ namespace WindowsGame2
             this.graphics.PreferredBackBufferHeight = 768;
             this.graphics.PreferredBackBufferWidth = 1024;
 
+            GameStateClass.changeState(GameStateClass.GameState.Start, this);
         }
 
         protected override void Initialize()
         {
+            // 視窗設定
             this.IsMouseVisible = true; // 顯示滑鼠
             this.Window.Title = "hello world";  // 視窗抬頭
             this.Window.AllowUserResizing = true; // 使用者可調整視窗大小
 
+            // 加入GameComponent
+            // Start
+            gameState_Start = new GameComponent_Start(this);
+            gameState_Start.Initialize();
+            this.Components.Add(gameState_Start);
+            // 導覽 
+            gameState_Guide = new GameComponent_Guide(this);
+            gameState_Guide.Initialize();
+            this.Components.Add(gameState_Guide);
+            // 選單
+            gameState_Menu = new GameComponent_Menu(this);
+            gameState_Menu.Initialize();
+            this.Components.Add(gameState_Menu);
+
             base.Initialize();
         }
 
-        Texture2D startTexture;
-        Rectangle startPosition;
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            gameState_Guide = new GameComponent_Guide(this);
-            gameState_Guide.Initialize();
-            this.Components.Add(gameState_Guide);
-
-            gameState_Menu = new GameComponent_Menu(this);
-            gameState_Menu.Initialize();
-            this.Components.Add(gameState_Menu);
 
             Font1 = Content.Load<SpriteFont>("SpriteFont1");
             gameState_Menu.Font = Font1;
@@ -93,11 +86,9 @@ namespace WindowsGame2
             videoImage.Initialize();
             this.Components.Add(videoImage);
             */
-            startTexture = Content.Load<Texture2D>("start");
-            startPosition = new Rectangle(GraphicsDevice.Viewport.Width / 2 - startTexture.Width / 2,
-                                          GraphicsDevice.Viewport.Height / 2 - startTexture.Height / 2,
-                                          startTexture.Width, startTexture.Height);
             
+            Texture2D startTexture = Content.Load<Texture2D>("start");
+            gameState_Start.startTexture = startTexture;
 
             // TODO: use this.Content to load your game content here
         }
@@ -111,9 +102,6 @@ namespace WindowsGame2
             // TODO: Unload any non ContentManager content here
         }
 
-        Color choose = Color.Red;
-        Color ready = Color.Black;
-        Color startStatus = Color.White;
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to [exit]
@@ -172,8 +160,7 @@ namespace WindowsGame2
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
             spriteBatch.Begin();
-            //priteBatch.Draw(startTexture, new Vector2(GraphicsDevice.Viewport.X / 2 - startTexture.Width / 2, GraphicsDevice.Viewport.Y / 2 - startTexture.Height / 2), startStatus);
-            spriteBatch.Draw(startTexture, startPosition, startStatus);
+
             spriteBatch.End();
 
             base.Draw(gameTime);

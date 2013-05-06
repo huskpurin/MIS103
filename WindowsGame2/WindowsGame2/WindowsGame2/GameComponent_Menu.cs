@@ -22,12 +22,14 @@ namespace WindowsGame2
 
         int hoverSide;
 
+        // 文字選項 類別
         class Choice
         {
-            public string title;
-            public Vector2 pos;
-            public Vector2 org;
-            public Color fontColor;
+            public string title;    // 選項標題
+            public Vector2 pos;     // 選項位置
+            public Vector2 org;     // 選項中心點
+            public Color fontColor; // 文字顏色
+            public int value;
 
             public Choice()
             {
@@ -52,28 +54,42 @@ namespace WindowsGame2
             destRectAll.X = this.GraphicsDevice.Viewport.Width / 2 - destRectAll.Width / 2;
             destRectAll.Y = this.GraphicsDevice.Viewport.Height / 2 - destRectAll.Height / 2;
             */
-
-
             base.Initialize();
         }
 
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
+            if (GameStateClass.currentGameState != GameStateClass.GameState.Menu)
+                return;
 
+            // TODO: Add your update code here
+            
             choiceLeft = new Choice();
-            choiceLeft.title = "left choice";
+            choiceRight = new Choice();
+
+            if (UserSetting.userSex == 0)
+            {
+                choiceLeft.title = "Male";
+                choiceRight.title = "Female";
+            }
+            else if (UserSetting.userHander == 0)
+            {
+                choiceLeft.title = "Left-Hander";
+                choiceRight.title = "Right-Hander";
+            }
+            else
+            {
+                GameStateClass.currentGameState = GameStateClass.GameState.CountryGuide;
+                return;
+            }
+
             choiceLeft.org = Font.MeasureString(choiceLeft.title) / 2;
             choiceLeft.pos = new Vector2(GraphicsDevice.Viewport.Width / 2 - GraphicsDevice.Viewport.Width / 6, GraphicsDevice.Viewport.Height / 2);
+            choiceLeft.value = 1;
 
-            choiceRight = new Choice();
-            choiceRight.title = "right choice";
             choiceRight.org = Font.MeasureString(choiceRight.title) / 2;
             choiceRight.pos = new Vector2(GraphicsDevice.Viewport.Width / 2 + GraphicsDevice.Viewport.Width / 6, GraphicsDevice.Viewport.Height / 2);
+            choiceLeft.value = 2;
 
             MouseState mouseState = Mouse.GetState();
 
@@ -82,15 +98,40 @@ namespace WindowsGame2
             if (mouseState.X >= choiceLeft.pos.X - choiceLeft.org.X && mouseState.X <= choiceLeft.pos.X + choiceLeft.org.X)
             {
                 choiceLeft.fontColor = Color.Black;
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    if (UserSetting.userSex == 0)
+                    {
+                        UserSetting.userSex = UserSetting.UserSex.Male;
+                    }
+                    else if (UserSetting.userHander == 0)
+                    {
+                        UserSetting.userHander = UserSetting.UserHander.Left_Hander;
+                    }
+                    return;
+                }
             }
             else
             {
                 choiceLeft.fontColor = Color.White;
             }
 
-            if (mouseState.X >= choiceRight.pos.X - choiceRight.org.X && mouseState.X <= choiceRight.pos.X + choiceRight.org.X)
+            if (mouseState.X >= choiceRight.pos.X - choiceRight.org.X && mouseState.X <= choiceRight.pos.X + choiceRight.org.X
+                && mouseState.LeftButton != ButtonState.Pressed )
             {
                 choiceRight.fontColor = Color.Black;
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    if (UserSetting.userSex == 0)
+                    {
+                        UserSetting.userSex = UserSetting.UserSex.Female;
+                    }
+                    else if (UserSetting.userHander == 0)
+                    {
+                        UserSetting.userHander = UserSetting.UserHander.Right_Hander;
+                    }
+                    return;
+                }
             }
             else
             {
@@ -102,6 +143,9 @@ namespace WindowsGame2
 
         public override void Draw(GameTime gameTime)
         {
+            if (GameStateClass.currentGameState != GameStateClass.GameState.Menu)
+                return;
+
             SpriteBatch spriteBatch = new SpriteBatch(GraphicsDevice);
 
             spriteBatch.Begin();
